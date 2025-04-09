@@ -12,7 +12,7 @@ width = 160
 height = 120
 
 # параметры для отправки данных на блокчейн
-w3 = Web3(Web3.HTTPProvider(f"https://mainnet.infura.io/v3/{INFURA_PROJECT_ID}"))
+w3 = Web3(Web3.HTTPProvider("https://bsc-testnet.publicnode.com"))
 
 def read_frame():
     frame = np.zeros((height, width), dtype=np.uint8)

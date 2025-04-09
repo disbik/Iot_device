@@ -31,6 +31,7 @@ def create_trans_contract(info, contract_address, sender_address, w3):
     tx = contract.functions.markAsSent(info).build_transaction({
         'chainId': w3.eth.chain_id,
         'gasPrice': w3.eth.gas_price,
+        'from': sender_address,
         'nonce': nonce,
     })
     tx['gas'] = w3.eth.estimate_gas(tx)
