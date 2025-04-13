@@ -28,14 +28,18 @@ ABI = [
 def create_trans_contract(info, contract_address, sender_address, w3):
     contract = w3.eth.contract(address=contract_address, abi=ABI)
     nonce = w3.eth.get_transaction_count(sender_address)
-    tx = contract.functions.markAsSent(info).build_transaction({
-        'chainId': w3.eth.chain_id,
-        'gasPrice': w3.eth.gas_price,
-        'from': sender_address,
-        'nonce': nonce,
-    })
-    tx['gas'] = w3.eth.estimate_gas(tx)
-    return tx
+    try:
+        tx = contract.functions.markAsSent(info).build_transaction({
+            'chainId': w3.eth.chain_id,
+            'gasPrice': w3.eth.gas_price,
+            'from': sender_address,
+            'nonce': nonce,
+        })
+        tx['gas'] = w3.eth.estimate_gas(tx)
+        return tx
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
 
 def send_transaction(transaction, private_key, w3) -> None:
     try:

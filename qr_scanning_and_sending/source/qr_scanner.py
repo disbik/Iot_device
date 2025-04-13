@@ -7,7 +7,6 @@ import base64
 def qr_scanner(img : numpy.ndarray):
     det = cv2.QRCodeDetector()
     val, pts, st_code = det.detectAndDecode(img)
-
     if pts is not None and len(pts) > 0:
         pts = pts[0].astype(int)
         for i in range(4):
@@ -25,5 +24,5 @@ def qr_scanner(img : numpy.ndarray):
                 cv2.putText(img, "Item id: " + val[0], (pts[0][0], pts[0][1] - 90), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 4)
                 cv2.putText(img, "Item id: " + val[0], (pts[0][0], pts[0][1] - 90), cv2.FONT_HERSHEY_SIMPLEX, 0.5,(0, 0, 0), 2)
     cv2.imshow('QR Code Detection', img)
-
+    cv2.waitKey(1)
     return val

@@ -35,7 +35,10 @@ if __name__ == "__main__":
             print(f"Ошибка чтения кадра: {e}")
             continue
 
-        product_id = qr_scanner(img)[0]
+        try:
+            product_id = qr_scanner(img)[0]
+        except:
+            product_id = None
 
         if product_id != last_info and product_id:
             tx = create_trans_contract(product_id, CONTRACT_ADDRESS, SENDER_ADDRESS, w3)

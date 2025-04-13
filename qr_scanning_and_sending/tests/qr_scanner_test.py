@@ -5,35 +5,19 @@ import cv2
 
 def test_qr_scanner():
     #right qr-code
-    assert qr_scanner(create_qr('test', 'rope'))[0][0] == 'rope'
-    assert qr_scanner(create_qr('test', 'soap'))[0][0] == 'soap'
-    assert qr_scanner(create_qr('test', 'weeee'))[0][0] == 'weeee'
+    assert qr_scanner(create_qr('test', 'rope'))[0] == 'rope'
+    assert qr_scanner(create_qr('test', 'soap'))[0] == 'soap'
+    assert qr_scanner(create_qr('test', 'weeee'))[0] == 'weeee'
 
     #wrong qr-code
     assert qr_scanner(create_qr('test', 'word1'))[0] != 'word2'
     assert qr_scanner(create_qr('test', 'word2'))[0] != 'word3'
 
     #no qr-code
-    assert qr_scanner(cv2.imread('test_pics_and_vids/no_qr.png'))[0] == ''
+    assert qr_scanner(cv2.imread('test_pics_and_vids/no_qr.png')) == None
 
 def test_rotated_image():
-    assert qr_scanner(rotate(create_qr('test', 'rope'), 45))[0][0] == 'rope'
-    assert qr_scanner(rotate(create_qr('test', 'rope'), 90))[0][0] == 'rope'
-    assert qr_scanner(rotate(create_qr('test', 'soap'), 180))[0][0] == 'soap'
-    assert qr_scanner(rotate(create_qr('test', 'big sentence so that the qr code gets big'), 45))[0][0] == 'big sentence so that the qr code gets big'
-
-
-import cv2
-import zxing
-
-import time
-
-cur_time = time.time()
-detector = cv2.QRCodeDetector()
-detector.detectAndDecode(create_qr('test', 'rope'))
-print(time.time() - cur_time)
-
-cur_time = time.time()
-detector = zxing.BarCodeReader()
-detector.decode("test_pics_and_vids/test.png")
-print(time.time() - cur_time)
+    assert qr_scanner(rotate(create_qr('test', 'rope'), 45))[0] == 'rope'
+    assert qr_scanner(rotate(create_qr('test', 'rope'), 90))[0] == 'rope'
+    assert qr_scanner(rotate(create_qr('test', 'soap'), 180))[0] == 'soap'
+    assert qr_scanner(rotate(create_qr('test', 'big sentence so that the qr code gets big'), 45))[0] == 'big sentence so that the qr code gets big'
